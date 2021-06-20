@@ -1,4 +1,50 @@
 html {
-    background-color: chocolate;
+    background-color: white;
+    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#orderContainer {
+    background-color: rgb(201, 196, 196);
+    padding: 10px;
+    margin-top: 30px;
+}
+
+#addBookContainer {
+    margin-top: 50px;
+}
+
+#header {
     text-align: center;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    display: inline;
+    font-size: 50px !important;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+label {
+    padding-left: 50px;
+    font-size: 30px;
+    vertical-align: middle;
+}
+
+input {
+    height: 30px;
+    width: 150px;
+    font-size: 25px;
+}
+
+select {
+    height: 40px;
+}
+
+#addButton {
+    margin-left: 30px;
+    height: 30px;
 }

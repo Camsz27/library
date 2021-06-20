@@ -1,14 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Page Title</title>
+  <title>Book Library</title>
   <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="style.css"> 
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1> THE TITLE OF YOUR WEBPAGE</h1>
-  <div id="container"></div>
-  <button id='btn'>CLICK ME</button>
-  <script src="practice.js">
+    <div id='header'>
+        <ul>
+            <li><img src='https://image.flaticon.com/icons/png/64/2232/2232688.png'></li>
+            <li>Book Library</li>
+        </ul>
+    </div>
+  <div id="addBookContainer">
+    <form>
+        <label for='title'>Book Title</label>
+        <input type="text" id='title' placeholder='Title' required>
+        <label for='author'>Author</label>
+        <input type="text" id='author' placeholder='Author' required>
+        <label for='pages'>Pages</label>
+        <input type="text" id='pages' placeholder='400' required>
+        <label for='read'>Read</label>
+        <select id="read">
+            <option value="">--Choose an option--</option>
+            <option value="read">Read</option>
+            <option value="notRead">Not read</option>
+        </select>
+        <button type="submit" id="addButton">Add Book</button>
+    </form>
+  </div>
+  <div id='orderContainer'>
+    <form action="">
+        <a>Total number of books: 2</a>
+        <a>Read: 3</a>
+        <a>Left to read: 2</a>
+        <label for='filter'>Order by</label>
+        <select id="filter">
+            <option value="">--Choose an option--</option>
+            <option value="numPages">Number of pages</option>
+            <option value="dateAdded">Date added</option>
+        </select>
+        <select id="order">
+            <option value="descending">Descending</option>
+            <option value="ascending">Ascending</option>
+        </select>
+    </form>
+  </div>
+  <script src="script.js">
   </script>
 </body>
 </html>
