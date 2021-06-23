@@ -1,54 +1,101 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Book Library</title>
-  <meta charset="UTF-8"/>
-  <link rel="stylesheet" href="style.css"> 
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div id='header'>
-        <ul>
-            <li><img src='https://image.flaticon.com/icons/png/64/2232/2232688.png'></li>
-            <li>Book Library</li>
-        </ul>
+  <head>
+    <title>Book Library</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="header">
+      <ul class="header">
+        <li class="header">
+          <img src="Images/main.png" />
+        </li>
+        <li class="header">Book Library</li>
+      </ul>
     </div>
-  <div id="addBookContainer">
-    <form>
-        <label for='title'>Book Title</label>
-        <input type="text" id='title' placeholder='Title' required>
-        <label for='author'>Author</label>
-        <input type="text" id='author' placeholder='Author' required>
-        <label for='pages'>Pages</label>
-        <input type="text" id='pages' placeholder='400' required>
-        <label for='read'>Read</label>
-        <select id="read">
-            <option value="">--Choose an option--</option>
-            <option value="read">Read</option>
-            <option value="notRead">Not read</option>
+    <div id="addBookContainer">
+      <form>
+        <label for="title">Book Title</label>
+        <input type="text" id="title" placeholder="Title" required />
+        <label for="author">Author</label>
+        <input type="text" id="author" placeholder="Author" required />
+        <label for="pages">Pages</label>
+        <input type="text" id="pages" placeholder="400" required />
+        <label for="read">Read</label>
+        <select id="read" required>
+          <option value="">--Choose an option--</option>
+          <option value="read">Read</option>
+          <option value="notRead">Not read</option>
         </select>
         <button type="submit" id="addButton">Add Book</button>
-    </form>
-  </div>
-  <div id='orderContainer'>
-    <form action="">
+      </form>
+    </div>
+    <div id="orderContainer">
+      <form action="">
         <a>Total number of books: 2</a>
         <a>Read: 3</a>
         <a>Left to read: 2</a>
-        <label for='filter'>Order by</label>
-        <select id="filter">
-            <option value="">--Choose an option--</option>
-            <option value="numPages">Number of pages</option>
-            <option value="dateAdded">Date added</option>
+        <label for="filter" class="order">Order by</label>
+        <select id="filter" class="order">
+          <option value="dateAdded">Date added</option>
+          <option value="numPages">Number of pages</option>
         </select>
-        <select id="order">
-            <option value="descending">Descending</option>
-            <option value="ascending">Ascending</option>
+        <select id="order" class="order">
+          <option value="descending">Descending</option>
+          <option value="ascending">Ascending</option>
         </select>
-    </form>
-  </div>
-  <script src="script.js">
-  </script>
-</body>
+      </form>
+    </div>
+    <div id="bookContainer">
+      <ul class="bookContainer">
+        <input
+          type="image"
+          src="Images/close_icon.png"
+          alt="Delete button"
+          id="delete"
+        />
+        <li class="title">Book1 Title</li>
+        <li class="info">Author: Author1</li>
+        <li class="info">Number of pages: 450</li>
+        <li class="info">
+          <img src="Images/checked.png" class="status" />Read
+        </li>
+      </ul>
+      <ul class="bookContainer">
+        <input
+          type="image"
+          src="Images/close_icon.png"
+          alt="Delete button"
+          id="delete"
+        />
+        <li class="title">Book1 Title</li>
+        <li class="info">Author: Author1</li>
+        <li class="info">Number of pages: 450</li>
+        <li class="info">
+          <img src="Images/checked.png" class="status" />Read
+        </li>
+      </ul>
+      <ul class="bookContainer">
+        <input
+          type="image"
+          src="Images/close_icon.png"
+          alt="Delete button"
+          id="delete"
+        />
+        <li class="title">Book1 Title</li>
+        <li class="info">Author: Author1</li>
+        <li class="info">Number of pages: 450</li>
+        <li class="info">
+          <img src="Images/warning.png" class="status" />Not Read
+        </li>
+      </ul>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>
