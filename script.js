@@ -67,6 +67,7 @@ function addBookToLibraryNew() {
   myLibrary.push(book);
   numberOfBooks();
   changeOrderContainer();
+  addBookToContainer();
   resetInputValues();
 }
 
@@ -77,6 +78,42 @@ function changeOrderContainer() {
   numberOfBooks.textContent = `Total number of books: ${bookNumber}`;
   booksReadText.textContent = `Read: ${booksRead}`;
   booksNotRead.textContent = `Left to Read: ${bookNumber - booksRead}`;
+}
+
+function addBookToContainer() {
+  const block = document.createElement("ul");
+  const deleteButton = document.createElement("input");
+  const titleText = document.createElement("li");
+  const authorText = document.createElement("li");
+  const pagesText = document.createElement("li");
+  const statusText = document.createElement("li");
+  const image = document.createElement("img");
+  const text = document.createTextNode(`${bookStatus}`);
+  if (bookStatus === "Read") {
+    image.setAttribute("src", "Images/checked.png");
+  } else {
+    image.setAttribute("src", "Images/warning.png");
+  }
+  deleteButton.setAttribute("type", "image");
+  deleteButton.setAttribute("src", "Images/close_icon.png");
+  deleteButton.setAttribute("id", "delete");
+  block.classList.add("bookContainer");
+  titleText.textContent = `${bookTitle}`;
+  titleText.classList.add("title");
+  authorText.textContent = `Author: ${bookAuthor}`;
+  authorText.classList.add("info");
+  pagesText.textContent = `Number of pages: ${bookPages}`;
+  pagesText.classList.add("info");
+  image.classList.add("status");
+  statusText.appendChild(image);
+  statusText.appendChild(text);
+  statusText.classList.add("info");
+  block.append(deleteButton);
+  block.append(titleText);
+  block.append(authorText);
+  block.append(pagesText);
+  block.append(statusText);
+  bookContainer.append(block);
 }
 
 const hobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, "not read yet");
