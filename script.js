@@ -34,7 +34,7 @@ function numberOfBooks() {
 function getInputValue() {
   bookTitle = document.getElementById("title").value;
   bookAuthor = document.getElementById("author").value;
-  bookPages = document.getElementById("pages").value;
+  bookPages = Number(document.getElementById("pages").value);
   bookStatus = document.getElementById("read").value;
 }
 
@@ -54,6 +54,13 @@ function addBookToLibraryNew() {
     bookStatus === ""
   ) {
     alert("Please fill all the fields");
+    return;
+  } else if (
+    bookPages < 0 ||
+    typeof bookPages !== typeof 1 ||
+    isNaN(bookPages)
+  ) {
+    alert("Please enter a valid number");
     return;
   }
   const book = new Book(bookTitle, bookAuthor, bookPages, bookStatus);
