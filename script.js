@@ -2,6 +2,7 @@ const bookContainer = document.querySelector("#bookContainer");
 const orderContainer = document.querySelector("#orderContainer");
 const addBookButton = document.querySelector("button");
 const addBookForm = document.getElementById("addBook");
+const deleteButtons = document.querySelectorAll(".delete");
 
 let myLibrary = [];
 let bookNumber = 0;
@@ -96,7 +97,8 @@ function addBookToContainer() {
   }
   deleteButton.setAttribute("type", "image");
   deleteButton.setAttribute("src", "Images/close_icon.png");
-  deleteButton.setAttribute("id", "delete");
+  deleteButton.setAttribute("class", "delete");
+  deleteButton.addEventListener("click", deleteBook);
   block.classList.add("bookContainer");
   titleText.textContent = `${bookTitle}`;
   titleText.classList.add("title");
@@ -116,6 +118,10 @@ function addBookToContainer() {
   bookContainer.append(block);
 }
 
+function deleteBook() {
+  this.parentNode.remove();
+}
+
 const hobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, "not read yet");
 const book2 = new Book("Book 2", "Author 1", 495, "read");
 const book3 = new Book("Book 3", "Author 2", 395, "not read yet");
@@ -131,4 +137,4 @@ addBookToLibrary(book5);
 numberOfBooks();
 changeOrderContainer();
 
-console.log(addBookButton);
+console.log(deleteButtons);

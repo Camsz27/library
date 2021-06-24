@@ -107,7 +107,7 @@ img.status {
   margin-right: 1rem;
 }
 
-#delete {
+.delete {
   text-align: right;
   margin-left: 89.5%;
   box-sizing: border-box;
