@@ -20,20 +20,20 @@
       </ul>
     </div>
     <div id="addBookContainer">
-      <form>
+      <form onsubmit="return false" id="addBook">
         <label for="title">Book Title</label>
-        <input type="text" id="title" placeholder="Title" required />
+        <input type="text" id="title" placeholder="Title" />
         <label for="author">Author</label>
-        <input type="text" id="author" placeholder="Author" required />
+        <input type="text" id="author" placeholder="Author" />
         <label for="pages">Pages</label>
-        <input type="text" id="pages" placeholder="400" required />
+        <input type="text" id="pages" placeholder="400" />
         <label for="read">Read</label>
-        <select id="read" required>
+        <select id="read">
           <option value="">--Choose an option--</option>
           <option value="read">Read</option>
           <option value="notRead">Not read</option>
         </select>
-        <button type="submit" id="addButton">Add Book</button>
+        <button id="addButton">Add Book</button>
       </form>
     </div>
     <div id="orderContainer">

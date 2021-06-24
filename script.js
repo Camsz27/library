@@ -1,9 +1,17 @@
 const bookContainer = document.querySelector("#bookContainer");
 const orderContainer = document.querySelector("#orderContainer");
+const addBookButton = document.querySelector("button");
+const addBookForm = document.getElementById("addBook");
 
 let myLibrary = [];
 let bookNumber = 0;
 let booksRead = 0;
+let bookTitle;
+let bookAuthor;
+let bookPages;
+let bookStatus;
+
+addBookButton.addEventListener("click", addBookToLibraryNew);
 
 function Book(title, author, pageNum, read) {
   this.title = title;
@@ -21,6 +29,38 @@ function addBookToLibrary(book) {
 
 function numberOfBooks() {
   bookNumber = myLibrary.length;
+}
+
+function getInputValue() {
+  bookTitle = document.getElementById("title").value;
+  bookAuthor = document.getElementById("author").value;
+  bookPages = document.getElementById("pages").value;
+  bookStatus = document.getElementById("read").value;
+}
+
+function resetInputValues() {
+  document.getElementById("title").value = "";
+  document.getElementById("author").value = "";
+  document.getElementById("pages").value = "";
+  document.getElementById("read").value = "";
+}
+
+function addBookToLibraryNew() {
+  getInputValue();
+  if (
+    bookTitle === "" ||
+    bookAuthor === "" ||
+    bookPages === "" ||
+    bookStatus === ""
+  ) {
+    alert("Please fill all the fields");
+    return;
+  }
+  const book = new Book(bookTitle, bookAuthor, bookPages, bookStatus);
+  myLibrary.push(book);
+  numberOfBooks();
+  changeOrderContainer();
+  resetInputValues();
 }
 
 function changeOrderContainer() {
@@ -47,5 +87,4 @@ addBookToLibrary(book5);
 numberOfBooks();
 changeOrderContainer();
 
-console.log(myLibrary);
-console.log(numberOfBooks());
+console.log(addBookButton);
