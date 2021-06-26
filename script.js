@@ -3,6 +3,8 @@ const orderContainer = document.querySelector("#orderContainer");
 const addBookButton = document.querySelector("button");
 const addBookForm = document.getElementById("addBook");
 const deleteButtons = document.querySelectorAll(".delete");
+const sortCriteria = document.getElementById("filter");
+const sortOrder = document.getElementById("order");
 
 let myLibrary = [];
 let bookNumber = 0;
@@ -13,12 +15,15 @@ let bookPages;
 let bookStatus;
 
 addBookButton.addEventListener("click", addBookToLibraryNew);
+sortOrder.addEventListener("change", changeOrder);
+sortCriteria.addEventListener("change", changeCriteria);
 
 function Book(title, author, pageNum, read) {
   this.title = title;
   this.author = author;
   this.pageNum = pageNum;
   this.read = read;
+  this.date = new Date();
   this.info = function () {
     return `${title} by ${author}, ${pageNum}, ${read}`;
   };
@@ -165,11 +170,50 @@ function changeStatus() {
   changeOrderContainer();
 }
 
-const hobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, "not read yet");
-const book2 = new Book("Book 2", "Author 1", 495, "read");
-const book3 = new Book("Book 3", "Author 2", 395, "not read yet");
-const book4 = new Book("Book 4", "Author 3", 195, "read");
-const book5 = new Book("Book 5", "Author 4", 295, "not read yet");
+function changeOrder() {
+  myLibrary = myLibrary.reverse();
+  console.log("this happens");
+  deleteAll();
+  addBooks();
+}
+
+function changeCriteria() {
+  console.log("change criteria was pressed");
+  console.log(sortCriteria.value);
+  if (sortCriteria.value === "numPages") {
+    console.log("numPages was selected");
+    myLibrary.sort((a, b) => a.pageNum - b.pageNum);
+  } else {
+    console.log("Date added was selected");
+    myLibrary.sort((a, b) => a.date - b.date);
+  }
+  deleteAll();
+  addBooks();
+}
+
+function deleteAll() {
+  console.log(bookContainer.childNodes);
+  while (bookContainer.firstChild) {
+    bookContainer.removeChild(bookContainer.lastChild);
+  }
+}
+
+function addBooks() {
+  for (let i = 0; i < myLibrary.length; i++) {
+    const book = myLibrary[i];
+    bookTitle = book.title;
+    bookAuthor = book.author;
+    bookPages = book.pageNum;
+    bookStatus = book.read;
+    addBookToContainer();
+  }
+}
+
+const hobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, "Not Read");
+const book2 = new Book("Book 2", "Author 1", 495, "Read");
+const book3 = new Book("Book 3", "Author 2", 395, "Not Read");
+const book4 = new Book("Book 4", "Author 3", 195, "Read");
+const book5 = new Book("Book 5", "Author 4", 295, "Not Read");
 
 addBookToLibrary(hobbit);
 addBookToLibrary(book2);
