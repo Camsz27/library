@@ -24,9 +24,6 @@ function Book(title, author, pageNum, read) {
   this.pageNum = pageNum;
   this.read = read;
   this.date = new Date();
-  this.info = function () {
-    return `${title} by ${author}, ${pageNum}, ${read}`;
-  };
 }
 
 function addBookToLibrary(book) {
@@ -53,6 +50,9 @@ function resetInputValues() {
 
 function addBookToLibraryNew() {
   getInputValue();
+  if (alreadyAdded()) {
+    return;
+  }
   if (
     bookTitle === "" ||
     bookAuthor === "" ||
@@ -75,6 +75,7 @@ function addBookToLibraryNew() {
   numberOfBooks();
   changeOrderContainer();
   resetInputValues();
+  changeCriteria();
 }
 
 function changeOrderContainer() {
@@ -172,33 +173,27 @@ function changeStatus() {
 
 function changeOrder() {
   myLibrary = myLibrary.reverse();
-  console.log("this happens");
   deleteAll();
-  addBooks();
+  addAllBooks();
 }
 
 function changeCriteria() {
-  console.log("change criteria was pressed");
-  console.log(sortCriteria.value);
   if (sortCriteria.value === "numPages") {
-    console.log("numPages was selected");
     myLibrary.sort((a, b) => a.pageNum - b.pageNum);
   } else {
-    console.log("Date added was selected");
     myLibrary.sort((a, b) => a.date - b.date);
   }
   deleteAll();
-  addBooks();
+  addAllBooks();
 }
 
 function deleteAll() {
-  console.log(bookContainer.childNodes);
   while (bookContainer.firstChild) {
-    bookContainer.removeChild(bookContainer.lastChild);
+    bookContainer.lastChild.remove();
   }
 }
 
-function addBooks() {
+function addAllBooks() {
   for (let i = 0; i < myLibrary.length; i++) {
     const book = myLibrary[i];
     bookTitle = book.title;
@@ -209,11 +204,21 @@ function addBooks() {
   }
 }
 
+function alreadyAdded() {
+  for (let i = 0; i < myLibrary.length; i++) {
+    const book = myLibrary[i];
+    if (book.title === bookTitle && book.author === bookAuthor) {
+      alert("Book already added");
+    }
+  }
+  return true;
+}
+
 const hobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, "Not Read");
-const book2 = new Book("Book 2", "Author 1", 495, "Read");
-const book3 = new Book("Book 3", "Author 2", 395, "Not Read");
-const book4 = new Book("Book 4", "Author 3", 195, "Read");
-const book5 = new Book("Book 5", "Author 4", 295, "Not Read");
+const book2 = new Book("Pride & Prejudice", "Jane Austin", 495, "Read");
+const book3 = new Book("The Great Gatsby", "Scott Fitzgerald", 395, "Not Read");
+const book4 = new Book("To Kill a Mockingbird", "Harper Lee", 195, "Read");
+const book5 = new Book("Don Quixote", "Miguel Cervantes", 295, "Not Read");
 
 addBookToLibrary(hobbit);
 addBookToLibrary(book2);
@@ -223,5 +228,3 @@ addBookToLibrary(book5);
 
 numberOfBooks();
 changeOrderContainer();
-
-console.log(deleteButtons);
