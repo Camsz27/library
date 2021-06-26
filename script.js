@@ -9,12 +9,13 @@ const sortOrder = document.getElementById("order");
 let myLibrary = [];
 let bookNumber = 0;
 let booksRead = 0;
+let booksNotRead = 0;
 let bookTitle;
 let bookAuthor;
 let bookPages;
 let bookStatus;
 
-addBookButton.addEventListener("click", addBookToLibraryNew);
+addBookButton.addEventListener("click", addBookToLibrary);
 sortOrder.addEventListener("change", changeOrder);
 sortCriteria.addEventListener("change", changeCriteria);
 
@@ -24,10 +25,6 @@ function Book(title, author, pageNum, read) {
   this.pageNum = pageNum;
   this.read = read;
   this.date = new Date();
-}
-
-function addBookToLibrary(book) {
-  myLibrary.push(book);
 }
 
 function numberOfBooks() {
@@ -48,9 +45,9 @@ function resetInputValues() {
   document.getElementById("read").value = "";
 }
 
-function addBookToLibraryNew() {
+function addBookToLibrary() {
   getInputValue();
-  if (alreadyAdded()) {
+  if (alreadyAdded() === true) {
     return;
   }
   if (
@@ -73,6 +70,7 @@ function addBookToLibraryNew() {
   myLibrary.push(book);
   addBookToContainer();
   numberOfBooks();
+  countBooksRead();
   changeOrderContainer();
   resetInputValues();
   changeCriteria();
@@ -81,10 +79,10 @@ function addBookToLibraryNew() {
 function changeOrderContainer() {
   const numberOfBooks = document.querySelector("#numberOfBooks");
   const booksReadText = document.querySelector("#booksRead");
-  const booksNotRead = document.querySelector("#booksNotRead");
+  const booksNotReadText = document.querySelector("#booksNotRead");
   numberOfBooks.textContent = `Total number of books: ${bookNumber}`;
   booksReadText.textContent = `Read: ${booksRead}`;
-  booksNotRead.textContent = `Left to Read: ${bookNumber - booksRead}`;
+  booksNotReadText.textContent = `Left to Read: ${booksNotRead}`;
 }
 
 function addBookToContainer() {
@@ -98,7 +96,6 @@ function addBookToContainer() {
   const text = document.createTextNode(`${bookStatus}`);
   if (bookStatus === "Read") {
     input.setAttribute("src", "Images/checked.png");
-    booksRead++;
   } else {
     input.setAttribute("src", "Images/warning.png");
   }
@@ -130,44 +127,44 @@ function addBookToContainer() {
 function deleteBook() {
   for (let i = 0; i < myLibrary.length; i++) {
     const book = myLibrary[i];
-    if (book.title === this.parentNode.childNodes[1].textContent) {
+    if (
+      book.title === this.parentNode.childNodes[1].textContent &&
+      "Author: " + book.author === this.parentNode.childNodes[2].textContent
+    ) {
       myLibrary.splice(i, 1);
-      if (book.read === "Read") {
-        booksRead--;
-      }
     }
   }
   this.parentNode.remove();
   numberOfBooks();
+  countBooksRead();
   changeOrderContainer();
 }
 
 function changeStatus() {
-  console.log(this);
-  console.log(this.parentNode.childNodes[1]);
   let status = 0;
   if (this.getAttribute("src") === "Images/checked.png") {
     this.setAttribute("src", "Images/warning.png");
     this.parentNode.appendChild(document.createTextNode("Not Read"));
-    status = 1;
   } else {
     this.setAttribute("src", "Images/checked.png");
     this.parentNode.appendChild(document.createTextNode("Read"));
-    status = 2;
   }
   for (let i = 0; i < myLibrary.length; i++) {
     const book = myLibrary[i];
-    if (book.title === this.parentNode.parentNode.childNodes[1].textContent) {
+    if (
+      book.title === this.parentNode.parentNode.childNodes[1].textContent &&
+      "Author: " + book.author ===
+        this.parentNode.parentNode.childNodes[2].textContent
+    ) {
       if (book.read === "Read") {
-        booksRead--;
         book.read = "Not Read";
       } else if (book.read === "Not Read") {
-        booksRead++;
         book.read = "Read";
       }
     }
   }
   this.parentNode.childNodes[1].remove();
+  countBooksRead();
   changeOrderContainer();
 }
 
@@ -209,22 +206,25 @@ function alreadyAdded() {
     const book = myLibrary[i];
     if (book.title === bookTitle && book.author === bookAuthor) {
       alert("Book already added");
+      return true;
     }
   }
-  return true;
+  return false;
 }
 
-const hobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, "Not Read");
-const book2 = new Book("Pride & Prejudice", "Jane Austin", 495, "Read");
-const book3 = new Book("The Great Gatsby", "Scott Fitzgerald", 395, "Not Read");
-const book4 = new Book("To Kill a Mockingbird", "Harper Lee", 195, "Read");
-const book5 = new Book("Don Quixote", "Miguel Cervantes", 295, "Not Read");
-
-addBookToLibrary(hobbit);
-addBookToLibrary(book2);
-addBookToLibrary(book3);
-addBookToLibrary(book4);
-addBookToLibrary(book5);
+function countBooksRead() {
+  booksRead = 0;
+  booksNotRead = 0;
+  for (let i = 0; i < myLibrary.length; i++) {
+    const book = myLibrary[i];
+    if (book.read === "Read") {
+      booksRead++;
+    } else {
+      booksNotRead++;
+    }
+  }
+}
 
 numberOfBooks();
+countBooksRead();
 changeOrderContainer();
